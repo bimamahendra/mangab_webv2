@@ -22,8 +22,23 @@ class Mgenerate extends CI_Model {
   	return $this->db->query("SELECT ID_ABSEN FROM absen WHERE ID_ABSEN = '.$rand.'")->num_rows();
   }
 
-  public function saveqr($sixdigit,$matkul,$topik,$now){
-  	$query = $this->db->query("INSERT INTO absen (ID_ABSEN, ID_MATKUL, TOPIK, TS_ABSEN) VALUES ($sixdigit, $matkul, $topik, $now)");
+  public function saveqr($data){
+  	$query = $this->db->insert("absen",$data);
+  	return TRUE;
+  }
+
+  public function cekpass($old){
+  	$nip = $this->session->userdata('nip');
+  	$this->db->where('PASS_DOSEN', $old);
+  	$this->db->where('NIP_DOSEN', $nip);
+  	$this->db->from('dosen');
+  	$query = $this->db->get();
+  	return $query;
+  }
+
+  public function changepass($pass){
+  	$nip = $this->session->userdata('nip');
+  	$this->db->query('UPDATE dosen SET PASS_DOSEN = "'.$pass.'" WHERE NIP_DOSEN = "'.$nip.'"');
   	return TRUE;
   }
 

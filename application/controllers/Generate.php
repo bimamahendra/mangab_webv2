@@ -17,11 +17,12 @@ class Generate extends CI_Controller {
 		$this->load->view('dashboard', $param);
 	}
 
-	public function generate($id){
+	public function generate(){
 		$sixdigit = $this->sixdigit();
-		$matkul = $id;
+		$id = $this->input->post('rowid');
 		$topik = $this->input->post('topik');
-		echo $topik;
+
+		// $topik = "Belajar Modal";
 
 		date_default_timezone_set('Asia/Jakarta'); # add your city to set local time zone
 		$now = date('Y-m-d H:i:s');
@@ -43,14 +44,22 @@ class Generate extends CI_Controller {
     $params['size'] 		= 10;
     $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
     $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+
+    $data = array(
+    	"ID_ABSEN" => $sixdigit,
+    	"ID_MATKUL" => $id,
+    	"TOPIK" => $topik,
+    	"TS_ABSEN" => $now,
+    	"STATUS_ABSEN" => 0
+    );
  
-    // $input = $this->Mgenerate->saveqr($sixdigit,$matkul,$topik,$now); //simpan ke database
-    // if($input){
-    // 	echo "Inserted";
-    // }else{
-    // 	echo "Failed";
-    // }
-    // redirect('Generate/showqr/'.$sixdigit); 
+    $input = $this->Mgenerate->saveqr($data); //simpan ke database
+    if($input){
+    	redirect('Generate/showqr/'.$sixdigit); 
+    }else{
+    	$this->session->set_flashdata('error_message', 'QR generate failed!');
+			redirect('Generate/absenlist');
+    }
 	}
 
 	public function sixdigit(){
@@ -65,10 +74,37 @@ class Generate extends CI_Controller {
 		}
 	}
 
-	public function showqr($sixdigit){
+	public function showqr($qr){
 		$param['main_content'] = 'generate/showqr';
-		$param['matkul_list'] = $this->Mgenerate->getAllMatkulByNIP($nip);
+		$param['uniqcode'] = $qr;
 		$this->load->view('dashboard', $param);
 	}
 
+	public function changepw(){
+		$param['main_content'] = 'generate/changepw';
+		$this->load->view('dashboard', $param);
+	}
+
+	public function changepass(){
+		$old = $this->input->post('old');
+		$new = $this->input->post('new');
+		$confirm = $this->input->post('confirm');
+
+		if($new != $confirm){
+			$this->session->set_flashdata('error_change', 'Password baru & Password konfirmasi tidak sama, silahkan ulangi');
+			redirect('Generate/changepw');
+		}else if($this->Mgenerate->cekpass($old)->num_rows()<= 0){
+			$this->session->set_flashdata('error_change', 'Password lama yang anda masukan salah, silahkan ulangi');
+			redirect('Generate/changepw');
+		}else{
+			$change = $this->Mgenerate->changepass($confirm);
+			if($change){
+				$this->session->set_flashdata('success_change', 'Password berhasil diubah');
+				redirect('Generate/changepw');
+			}else{
+				$this->session->set_flashdata('error_change', 'Gagal merubah password, silahkan ulangi');
+			redirect('Generate/changepw');
+			}
+		}
+	}
 }

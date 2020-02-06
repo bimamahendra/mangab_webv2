@@ -45,8 +45,10 @@
                   <td class="text-center"><?php echo $row->KODE_MATKUL ?></td>
                   <td><?php echo $row->NAMA_MATKUL ?></td>
                   <td class="text-center"><?php echo $row->KELAS_MATKUL ?></td>
-                  <td class="text-center"><a class="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#ModalTopic" data-id="<?php echo $row->ID_MATKUL; ?>"
-                        data-title="<?php echo $row->ID_MATKUL; ?>"><span class="fa fa-pencil"></span> Buat Kelas</a></td>
+                  <td><?php echo $row->ID_MATKUL ?></td>
+                  <td class="text-center">
+                    <a  href="#" data-toggle="modal" data-target="#ModalTopic" req_id="<?php echo $row->ID_MATKUL; ?>" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Buat Kelas</a>
+                  </td>
                 </tr>
               <?php $i++;} ?>
             </tbody>
@@ -57,39 +59,45 @@
   </div>
 </div>
 
-<div class="modal fade" id="ModalTopic" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="ModalTopic" role="dialog" tab-index="-1" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header text-center">
-        <h5 class="modal-title">Konfirmasi Pembuatan Kelas</h5> <button type="button" class="close" data-dismiss="modal"> <span>×</span> </button>
+      <div class="modal-header">
+        <h5 class="modal-title">Topik Perkuliahan</h5> <button type="button" class="close" data-dismiss="modal"> <span>×</span> </button>
       </div>
 
-      <form id="topikForm" method="POST" action="<?php echo site_url('Generate/generate/'.$row->ID_MATKUL) ?>">
-        <div class="modal-body mx-3">
-          <div class="md-form mb-5">
+      <form class="form-horizontal" action="<?php echo base_url('Generate/generate/'.$row->ID_MATKUL) ?>" method="post" enctype="multipart/form-data" role="form">
+
+      <div class="modal-body">
+          <div class="md-form">
             <i class="fa fa-thumb-tack text-secondary"></i>
             <label data-error="wrong" data-success="right" for="defaultForm-room">Topik Kelas</label>
-            <input type="text" name="topik" class="form-control validate">
+            <input type="text" id="topik" name="topik" class="form-control validate">
+            <input type="hidden" id="id" name="id">
           </div>
 
           <p id="qrtitle"></p>
         </div>
+      <div class="modal-footer"> 
+        <button type="submit" class="btn btn-success">Buat</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> 
+      </div>
 
-        <div class="modal-footer"> 
-          <a href="<?php echo site_url('Generate/generate/'.$row->ID_MATKUL) ?>" class="btn btn-success">Buat</a>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button> 
-        </div>
       </form>
+
     </div>
   </div>
 </div>
+
+
 <script>
-$('#ModalTopic').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget)
-    var qr_id = button.data('id')
-    var modal = $(this)
-    var qr_title = button.data('title');
-    document.getElementById('qrtitle').innerHTML = qr_title;
-    modal.find('.modal-footer a').attr("href", "<?= base_url() ?>Generate/generate/" + qr_id)
-})
+$(document).ready(function(){
+  $('#ModalTopic').on('show.bs.modal', function (event) {
+    var req_id = $(e.relatedTarget).data('id');
+    var modal = $(this);
+
+    modal.find('#id').val(req_id);
+    
+  });
+});
 </script>

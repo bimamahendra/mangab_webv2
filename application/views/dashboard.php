@@ -26,8 +26,8 @@
 				<?php } else { ?>
 					<a href="<?= base_url(); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-dashboard"></span> Dashboard</a>
 					<a href="<?= base_url('Generate/absenlist'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-qrcode"></span> Generate QR Code</a>
-					<a href="<?= base_url('Dosen'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-list"></span> History</a>
-					<a href="<?= base_url('Absen'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-key"></span> Ubah Password</a>
+					<a href="<?= base_url('Generate/history'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-list"></span> History</a>
+					<a href="<?= base_url('Generate/changepw'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-key"></span> Ubah Password</a>
 				<?php } ?>
 			</div>
 		</nav>
