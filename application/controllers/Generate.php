@@ -19,7 +19,7 @@ class Generate extends CI_Controller {
 
 	public function generate(){
 		$sixdigit = $this->sixdigit();
-		$id = $this->input->post('rowid');
+		$id = $this->input->post('id');
 		$topik = $this->input->post('topik');
 
 		// $topik = "Belajar Modal";
@@ -45,16 +45,31 @@ class Generate extends CI_Controller {
     $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
     $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
 
-    $data = array(
+    $datakelas = array(
     	"ID_ABSEN" => $sixdigit,
     	"ID_MATKUL" => $id,
     	"TOPIK" => $topik,
     	"TS_ABSEN" => $now,
     	"STATUS_ABSEN" => 0
     );
- 
-    $input = $this->Mgenerate->saveqr($data); //simpan ke database
-    if($input){
+ 		$getmhs = $this->Mgenerate->getmhs($id);
+
+ 		$detailAbsenMhs = array();
+
+ 		foreach($getmhs as $mhs){
+ 			$dataDetailAbsen["ID_ABSEN"] = $sixdigit;
+			$dataDetailAbsen["NRP_MHS"] = $mhs["nrp"];
+      $dataDetailAbsen["STATUS_DETABSEN"] = 0;
+      $dataDetailAbsen["TS_DETABSEN"] = null;
+
+      $detailAbsenMhs[] = $dataDetailAbsen;
+ 		}
+
+ 		$inputMhs = $this->Mgenerate->savedet($detailAbsenMhs);
+
+    $inputkelas = $this->Mgenerate->saveqr($datakelas);
+
+    if($inputkelas && ($inputMhs > 0 ) ){
     	redirect('Generate/showqr/'.$sixdigit); 
     }else{
     	$this->session->set_flashdata('error_message', 'QR generate failed!');
@@ -77,8 +92,11 @@ class Generate extends CI_Controller {
 	public function showqr($qr){
 		$param['main_content'] = 'generate/showqr';
 		$param['uniqcode'] = $qr;
+		$param['datakelas'] = $this->Mgenerate->getkelas($qr);
 		$this->load->view('dashboard', $param);
 	}
+
+	//PASSWORD
 
 	public function changepw(){
 		$param['main_content'] = 'generate/changepw';

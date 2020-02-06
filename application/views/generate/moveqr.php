@@ -45,9 +45,8 @@
                   <td class="text-center"><?php echo $row->KODE_MATKUL ?></td>
                   <td><?php echo $row->NAMA_MATKUL ?></td>
                   <td class="text-center"><?php echo $row->KELAS_MATKUL ?></td>
-                  <td><?php echo $row->ID_MATKUL ?></td>
                   <td class="text-center">
-                    <a  href="#" data-toggle="modal" data-target="#ModalTopic" req_id="<?php echo $row->ID_MATKUL; ?>" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Buat Kelas</a>
+                    <a href="#" onclick="getIDKelas('<?php echo $row->ID_MATKUL; ?>')" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Buat Kelas</a>
                   </td>
                 </tr>
               <?php $i++;} ?>
@@ -66,7 +65,7 @@
         <h5 class="modal-title">Topik Perkuliahan</h5> <button type="button" class="close" data-dismiss="modal"> <span>×</span> </button>
       </div>
 
-      <form class="form-horizontal" action="<?php echo base_url('Generate/generate/'.$row->ID_MATKUL) ?>" method="post" enctype="multipart/form-data" role="form">
+      <form class="form-horizontal" action="<?php echo base_url('Generate/generate') ?>" method="post" enctype="multipart/form-data" role="form">
 
       <div class="modal-body">
           <div class="md-form">
@@ -91,13 +90,8 @@
 
 
 <script>
-$(document).ready(function(){
-  $('#ModalTopic').on('show.bs.modal', function (event) {
-    var req_id = $(e.relatedTarget).data('id');
-    var modal = $(this);
-
-    modal.find('#id').val(req_id);
-    
-  });
-});
+  function getIDKelas(id_kelas){
+  $("#id").val(id_kelas);
+  $("#ModalTopic").modal("show");
+  }
 </script>

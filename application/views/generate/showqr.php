@@ -1,3 +1,9 @@
+<style type="text/css">
+  tr{
+    height: 20px;
+  }
+</style>
+
 <div class="py-1">
   <div class="container">
     <div class="row">
@@ -17,6 +23,41 @@
       </div>
     </div>
   </div>
+
+  <div class="container">
+    <div class="row">
+       <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-striped table-borderless" id="newstable">
+            <thead>
+              <tr>
+                <th class="text-center" style="width: 25px">No</th>
+                <th class="text-center">NRP</th>
+                <th class="text-center">Nama</th>
+                <th class="text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php $i = 1;
+              foreach ($datakelas as $mhs){ ?>
+                <tr>
+                  <td class="text-center"><?php $i ?></td>
+                  <td class="text-center"><?php echo $mhs->nrp; ?></td>
+                  <td class="text-left"><?php echo $mhs->nama ?></td>
+                  <td class="text-center"><?php echo $mhs->status_absen ?></td>
+                </tr>
+              <?php $i++; } ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="container">
+    <div class="row">
+      <a class="btn btn-danger" style="margin: 0 auto; margin-bottom: 10px"href="<?php base_url('') ?>"> SELESAI </a>
+    </div>
 </div>
 
 <script type="text/javascript">

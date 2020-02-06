@@ -27,6 +27,20 @@ class Mgenerate extends CI_Model {
   	return TRUE;
   }
 
+  public function getmhs($id){
+  	$query = $this->db->query("SELECT a.NRP_MHS as nrp, b.NAMA_MHS as nama, b.EMAIL_MHS as email FROM ambilmk a JOIN mahasiswa b ON b.NRP_MHS = a.NRP_MHS WHERE a.ID_MATKUL = '".$id."' ");
+  	return $query->result_array();
+  }
+
+  public function savedet($data){
+  	$this->db->insert_batch('detail_absen', $data);
+  	return $this->db->affected_rows();
+  }
+
+  public function getkelas($qr){
+  	return $this->db->query("SELECT a.NRP_MHS as nrp, b.NAMA_MHS as nama, b.EMAIL_MHS as email, a.STATUS_DETABSEN as status_absen FROM detail_absen a JOIN mahasiswa b ON b.NRP_MHS = a.NRP_MHS WHERE a.ID_ABSEN = '".$qr."' ")->result();
+  }
+
   public function cekpass($old){
   	$nip = $this->session->userdata('nip');
   	$this->db->where('PASS_DOSEN', $old);
