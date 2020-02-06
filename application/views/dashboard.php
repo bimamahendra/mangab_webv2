@@ -2,7 +2,7 @@
 <html>
 
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title> <?php echo $page_title ?> </title>
+	<title> Secure Attendance </title>
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="<?= base_url('assets/images/icon_scan.png') ?>">
@@ -16,15 +16,19 @@
 <body>
 	<div class="d-flex" id="wrapper">
 		<nav class="bg-light border-right" id="sidebar-wrapper">
-			<div class="sidebar-heading" > Mahasiswa Ngabsen <b>(MaNgab)</b> </div>
+			<div class="sidebar-heading" > Secure Attendance <br><b>(e-tan)</b> </div>
 			<div class="list-group list-group-flush">
-				<a href="<?= base_url(); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-dashboard"></span> Dashboard</a>
-				<a href="<?= base_url('Mahasiswa'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-users"></span> Data Mahasiswa</a>
-				<a href="<?= base_url('Dosen'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-user"></span> &nbsp;Data Dosen</a>
-				<!-- <a href="<?= base_url('Matkul'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-book"></span> Data Mata Kuliah</a> -->
-				<!-- <a href="<?= base_url('Kelas'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-building"></span> &nbsp;Data Kelas</a> -->
-				<!-- <a href="<?= base_url('Frs'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-calendar"></span> &nbsp;Data FRS</a> -->
-				<a href="<?= base_url('Absen'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-list"></span> Rekap Kehadiran</a>
+				<?php if($this->session->userdata('isLogin')){ ?>
+					<a href="<?= base_url(); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-dashboard"></span> Dashboard</a>
+					<a href="<?= base_url('Mahasiswa'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-users"></span> Data Mahasiswa</a>
+					<a href="<?= base_url('Dosen'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-user"></span> &nbsp;Data Dosen</a>
+					<a href="<?= base_url('Absen'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-list"></span> Rekap Kehadiran</a>
+				<?php } else { ?>
+					<a href="<?= base_url(); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-dashboard"></span> Dashboard</a>
+					<a href="<?= base_url('Generate/absenlist'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-qrcode"></span> Generate QR Code</a>
+					<a href="<?= base_url('Dosen'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-list"></span> History</a>
+					<a href="<?= base_url('Absen'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-key"></span> Ubah Password</a>
+				<?php } ?>
 			</div>
 		</nav>
 		<!-- /#sidebar-wrapper -->
@@ -37,10 +41,10 @@
 				</button> -->
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-						<li class="nav-item" style="color: white"> <b> <?php echo $page_title ?> </b> <br></li>
+						<li class="nav-item" style="color: white"> <b> <?php echo ($this->session->userdata('isDosen')) ? 'Selamat Mengajar, '.$this->session->userdata('nama') : $page_title ?> </b> <br></li>
 					</ul>
 					<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-						<li class="nav-item"> <a class="nav-link" href="<?= base_url('login/logout'); ?>" style="color:white">Log Out <span class="fa fa-sign-out" style="color: white"></span><br></a> </li>
+						<li class="nav-item"> <a class="nav-link" href="<?= base_url('login/logout'); ?>" style="color:white">Keluar <span class="fa fa-sign-out" style="color: white"></span><br></a> </li>
 					</ul>
 				</div>
 			</nav>
