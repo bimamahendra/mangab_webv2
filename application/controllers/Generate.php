@@ -99,6 +99,7 @@ class Generate extends CI_Controller {
 
 	public function recap($qr){
 		$param['main_content'] = 'generate/recap';
+		$param['uniqcode'] = $qr;
 		$param['datamhs'] = $this->Mgenerate->getrecap($qr);
 		$this->load->view('dashboard', $param);
 	}

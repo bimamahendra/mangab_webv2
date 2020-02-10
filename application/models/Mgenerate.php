@@ -46,6 +46,10 @@ class Mgenerate extends CI_Model {
   	return $this->db->query("SELECT a.NRP_MHS as nrp, b.NAMA_MHS as nama, b.EMAIL_MHS as email, a.STATUS_DETABSEN as status_absen FROM detail_absen a JOIN mahasiswa b ON b.NRP_MHS = a.NRP_MHS WHERE a.ID_ABSEN = '".$qr."' ")->result();
   }
 
+  public function getrecap($qr){
+    return $this->db->query("SELECT d.NRP_MHS, m.NAMA_MHS, d.STATUS_DETABSEN FROM detail_absen d JOIN mahasiswa m ON d.NRP_MHS = m.NRP_MHS WHERE d.ID_ABSEN = '".$qr."' AND d.STATUS_DETABSEN = 0 ")->result();
+  }
+
   public function cekpass($old){
   	$nip = $this->session->userdata('nip');
   	$this->db->where('PASS_DOSEN', $old);
