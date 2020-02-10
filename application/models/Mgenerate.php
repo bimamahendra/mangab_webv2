@@ -18,6 +18,11 @@ class Mgenerate extends CI_Model {
   	return $this->db->where('ID_MATKUL', $id)->get('matkul')->result();
   }
 
+  public function cekstatabsen($nip, $id){
+  	$query = $this->db->query('SELECT a.ID_ABSEN FROM absen a JOIN matkul m ON a.ID_MATKUL = m.ID_MATKUL JOIN dosen d ON m.NIP_DOSEN = d.NIP_DOSEN WHERE d.NIP_DOSEN = "'.$nip.'" AND a.STATUS_ABSEN = 0 AND a.ID_MATKUL = "'.$id.'"')->row();
+  	return $query;
+  }
+
   public function cekrand($rand){
   	return $this->db->query("SELECT ID_ABSEN FROM absen WHERE ID_ABSEN = '.$rand.'")->num_rows();
   }

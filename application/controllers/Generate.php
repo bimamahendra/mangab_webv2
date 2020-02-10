@@ -13,6 +13,7 @@ class Generate extends CI_Controller {
 	public function absenlist(){
 		$nip = $this->session->userdata('nip');
 		$param['main_content'] = 'generate/moveqr';
+		$param['cekkelas'] = $this->Mgenerate;
 		$param['matkul_list'] = $this->Mgenerate->getAllMatkulByNIP($nip);
 		$this->load->view('dashboard', $param);
 	}
@@ -93,6 +94,12 @@ class Generate extends CI_Controller {
 		$param['main_content'] = 'generate/showqr';
 		$param['uniqcode'] = $qr;
 		$param['datakelas'] = $this->Mgenerate->getkelas($qr);
+		$this->load->view('dashboard', $param);
+	}
+
+	public function recap($qr){
+		$param['main_content'] = 'generate/recap';
+		$param['datamhs'] = $this->Mgenerate->getrecap($qr);
 		$this->load->view('dashboard', $param);
 	}
 

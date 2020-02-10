@@ -44,7 +44,7 @@
                   <td class="text-center"><?php $i ?></td>
                   <td class="text-center"><?php echo $mhs->nrp; ?></td>
                   <td class="text-left"><?php echo $mhs->nama ?></td>
-                  <td class="text-center"><?php echo $mhs->status_absen ?></td>
+                  <td class="text-center"><?php echo ($mhs->status_absen == 0) ? "Alpa" : "Hadir"  ?></td>
                 </tr>
               <?php $i++; } ?>
             </tbody>
@@ -56,7 +56,7 @@
 
 <div class="container">
     <div class="row">
-      <a class="btn btn-danger" style="margin: 0 auto; margin-bottom: 10px"href="<?php base_url('') ?>"> SELESAI </a>
+      <a class="btn btn-danger" style="margin: 0 auto; margin-bottom: 10px"href="<?php base_url('Generate/recap/'.$uniqcode) ?>"> SELESAI </a>
     </div>
 </div>
 

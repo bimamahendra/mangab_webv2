@@ -35,7 +35,7 @@
                 <th class="text-center">Kode Mata Kuliah</th>
                 <th class="text-center">Nama Mata Kuliah  </th>
                 <th class="text-center">Kelas</th>
-                <th class="text-center" style="width: 100px">Aksi</th>
+                <th class="text-center">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -46,7 +46,19 @@
                   <td><?php echo $row->NAMA_MATKUL ?></td>
                   <td class="text-center"><?php echo $row->KELAS_MATKUL ?></td>
                   <td class="text-center">
-                    <a href="#" onclick="getIDKelas('<?php echo $row->ID_MATKUL; ?>')" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Buat Kelas</a>
+
+                    <a href="<?php echo base_url('Generate/detail/'.$row->ID_MATKUL) ?>" class="btn btn-sm btn-danger"><i class="fa fa-bars"></i> Detail Kelas</a>
+
+                  <?php { if(($cekkelas->cekstatabsen($this->session->userdata('nip'), $row->ID_MATKUL)) != NULL) {
+                      $res = $cekkelas->cekstatabsen($this->session->userdata('nip'), $row->ID_MATKUL);
+                      $tag = 'href="'.base_url("Generate/showqr/$res->ID_ABSEN").'" class="btn btn-sm btn-warning"><i class="fa fa-refresh"></i> Lanjutkan';
+                    }else{
+                      $tag = 'href="#" onclick="getIDKelas('.$row->ID_MATKUL.')" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Buat Kelas';
+                    }
+                  }
+                  ?>
+
+                   <a <?php echo $tag; ?> </a>
                   </td>
                 </tr>
               <?php $i++;} ?>
