@@ -37,6 +37,6 @@ class Absen extends CI_Controller {
 	public function delete($id){
 		$this->Mabsen->delete($id);
 		$this->session->set_flashdata('success_message', 'Data dosen berhasil dihapus');
-		redirect('Dosen');
+		redirect('Absen');
 	}
 }

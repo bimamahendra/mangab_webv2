@@ -43,11 +43,37 @@ class Mgenerate extends CI_Model {
   }
 
   public function getkelas($qr){
-  	return $this->db->query("SELECT a.NRP_MHS as nrp, b.NAMA_MHS as nama, b.EMAIL_MHS as email, a.STATUS_DETABSEN as status_absen FROM detail_absen a JOIN mahasiswa b ON b.NRP_MHS = a.NRP_MHS WHERE a.ID_ABSEN = '".$qr."' ")->result();
+    return $this->db->query("SELECT a.NRP_MHS as nrp, b.NAMA_MHS as nama, b.EMAIL_MHS as email, a.STATUS_DETABSEN as status_absen FROM detail_absen a JOIN mahasiswa b ON b.NRP_MHS = a.NRP_MHS WHERE a.ID_ABSEN = '".$qr."' ")->result();
+  }
+
+  public function getjmlmhs($qr){
+    $query =  $this->db->query("SELECT COUNT(a.NRP_MHS) AS jml FROM detail_absen a JOIN mahasiswa b ON b.NRP_MHS = a.NRP_MHS WHERE a.ID_ABSEN = '".$qr."' ")->row();
+    return $query->jml;
   }
 
   public function getrecap($qr){
     return $this->db->query("SELECT d.NRP_MHS, m.NAMA_MHS, d.STATUS_DETABSEN FROM detail_absen d JOIN mahasiswa m ON d.NRP_MHS = m.NRP_MHS WHERE d.ID_ABSEN = '".$qr."' AND d.STATUS_DETABSEN = 0 ")->result();
+  }
+
+  public function updaterekap($qr, $nrp, $stat){
+    $this->db->set('STATUS_DETABSEN', $stat);
+    $this->db->where('ID_ABSEN', $qr);
+    $this->db->where('NRP_MHS', $nrp);
+    $this->db->update('detail_absen');
+    return TRUE;
+  }
+
+  public function updatenote($note, $qr){
+    $this->db->set('NOTE', $note);
+    $this->db->set('STATUS_ABSEN', 1);
+    $this->db->where('ID_ABSEN', $qr);
+    $this->db->update('absen');
+    return TRUE;
+  }
+
+  public function gethistory($nip){
+    $query = $this->db->query("SELECT m.NAMA_MATKUL, m.KELAS_MATKUL, a.TOPIK, a.TS_ABSEN, a.STATUS_ABSEN FROM absen a JOIN matkul m ON a.ID_MATKUL = m.ID_MATKUL WHERE m.NIP_DOSEN = '".$nip."'");
+    return $query->result();
   }
 
   public function cekpass($old){

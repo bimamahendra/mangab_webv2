@@ -5,7 +5,7 @@
 	<title> Secure Attendance </title>
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="<?= base_url('assets/images/icon_scan.png') ?>">
+	<link rel="icon" href="<?= base_url('assets/images/icon.png') ?>">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -18,23 +18,23 @@
 		<nav class="bg-light border-right" id="sidebar-wrapper">
 			<div class="sidebar-heading" > Secure Attendance <br><b>(e-tan)</b> </div>
 			<div class="list-group list-group-flush">
-				<?php if($this->session->userdata('isLogin')){ ?>
-					<a href="<?= base_url(); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-dashboard"></span> Dashboard</a>
-					<a href="<?= base_url('Mahasiswa'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-users"></span> Data Mahasiswa</a>
-					<a href="<?= base_url('Dosen'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-user"></span> &nbsp;Data Dosen</a>
-					<a href="<?= base_url('Absen'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-list"></span> Rekap Kehadiran</a>
-				<?php } else { ?>
+				<?php if($this->session->userdata('isDosen')){ ?>
 					<a href="<?= base_url(); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-dashboard"></span> Dashboard</a>
 					<a href="<?= base_url('Generate/absenlist'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-qrcode"></span> Generate QR Code</a>
 					<a href="<?= base_url('Generate/history'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-list"></span> History</a>
 					<a href="<?= base_url('Generate/changepw'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-key"></span> Ubah Password</a>
+				<?php } else { ?>
+					<a href="<?= base_url(); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-dashboard"></span> Dashboard</a>
+					<a href="<?= base_url('Mahasiswa'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-users"></span> Data Mahasiswa</a>
+					<a href="<?= base_url('Dosen'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-user"></span> &nbsp;Data Dosen</a>
+					<a href="<?= base_url('Absen'); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-list"></span> Rekap Kehadiran</a>
 				<?php } ?>
 			</div>
 		</nav>
 		<!-- /#sidebar-wrapper -->
 		<!-- Page Content -->
 		<div id="page-content-wrapper">
-			<nav class="navbar navbar-expand-lg border-bottom"  style="background:#005792">
+			<nav class="navbar navbar-expand-lg border-bottom"  style="background:#3032A0">
 				<!-- <button class="btn btn-light" id="menu-toggle"><i class="fa fa-bars"></i></button>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -67,6 +67,11 @@
 	$(document).ready(function() {
 		$('#newstable').DataTable( {
 			"paging":   true,
+			"ordering": false,
+			"info":     false
+		});
+		$('#recap').DataTable( {
+			"paging":   false,
 			"ordering": false,
 			"info":     false
 		});

@@ -11,24 +11,24 @@ class Mabsen extends CI_Model {
   }
 
   public function verifAbsen($id){
-    $this->db->query("UPDATE absen SET STATUS_ABSEN = 2 WHERE ID_ABSEN = ".$id." ");
+    $this->db->query("UPDATE absen SET STATUS_ABSEN = 2 WHERE ID_ABSEN = '".$id."'");
     return $this->db->affected_rows();
   }
 
   public function getAbsen($id){
-    $query = $this->db->query("SELECT absen.ID_ABSEN, mahasiswa.NRP_MHS, mahasiswa.NAMA_MHS, detail_absen.STATUS_DETABSEN, detail_absen.TS_DETABSEN FROM absen JOIN detail_absen ON absen.ID_ABSEN = detail_absen.ID_ABSEN JOIN mahasiswa ON detail_absen.NRP_MHS = mahasiswa.NRP_MHS WHERE detail_absen.ID_ABSEN = ".$id." ORDER BY (detail_absen.NRP_MHS) ASC");
+    $query = $this->db->query("SELECT absen.ID_ABSEN, mahasiswa.NRP_MHS, mahasiswa.NAMA_MHS, detail_absen.STATUS_DETABSEN, detail_absen.TS_DETABSEN FROM absen JOIN detail_absen ON absen.ID_ABSEN = detail_absen.ID_ABSEN JOIN mahasiswa ON detail_absen.NRP_MHS = mahasiswa.NRP_MHS WHERE detail_absen.ID_ABSEN = '".$id."' ORDER BY (detail_absen.NRP_MHS) ASC");
     return $query->result();
   }
 
   public function getNote($id){
-    $query = $this->db->query("SELECT NOTE FROM absen WHERE ID_ABSEN = ".$id."");
+    $query = $this->db->query("SELECT NOTE FROM absen WHERE ID_ABSEN = '".$id."'");
     return $query->result();
   }
 
   public function delete($id){
-    $query = $this->db->query("DELETE FROM absen WHERE ID_ABSEN = ".$id." ");
-    $query = $this->db->query("DELETE FROM detail_absen WHERE ID_ABSEN = ".$id." ");
-    return $query->affected_rows();
+    $query = $this->db->query("DELETE FROM absen WHERE ID_ABSEN = '".$id."'");
+    $query = $this->db->query("DELETE FROM detail_absen WHERE ID_ABSEN = '".$id."'");
+    return TRUE;
   }
 
   public function stat(){

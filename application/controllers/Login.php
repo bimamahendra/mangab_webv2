@@ -16,7 +16,8 @@ class Login extends CI_Controller {
 		if($user === "admin" && $pass === "admin"){
 			$session = array(
         'who' => "admin",
-        'isLogin' => true
+        'isLogin' => true,
+        'isDosen' => false
       );
 			$this->session->set_userdata($session);
 			redirect('Welcome');
@@ -30,11 +31,13 @@ class Login extends CI_Controller {
 				$session = array(
 					'nip' => $nip,
 					'nama' => $nama,
+					'isLogin' => true,
 					'isDosen' => true
 				);
 			$this->session->set_userdata($session);
+			// print_r($session);
 			redirect('Welcome');
-
+			// echo "dosen login";
 		}else{
 			$this->session->set_flashdata('error_login', 'Username/Password is incorrect!');
 			redirect('Welcome');

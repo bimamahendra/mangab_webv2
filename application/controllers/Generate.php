@@ -104,6 +104,28 @@ class Generate extends CI_Controller {
 		$this->load->view('dashboard', $param);
 	}
 
+	public function confirm($qr){
+		$jml = $this->Mgenerate->getjmlmhs($qr);
+		for($i = 1; $i <= $jml; $i++){
+				$nrp = $this->input->post('nrp'.$i);
+				$stat = $this->input->post('radion'.$i);
+
+			$this->Mgenerate->updaterekap($qr, $nrp, $stat);
+		}
+
+		$note = $this->input->post('catatan');
+		$updatenote = $this->Mgenerate->updatenote($note, $qr);
+
+		redirect('Generate/absenlist');
+	}
+
+	public function history(){
+		$nip = $this->session->userdata('nip');
+		$param['main_content'] = 'generate/history';
+		$param['listhistory'] = $this->Mgenerate->gethistory($nip);
+		$this->load->view('dashboard',$param);
+	}
+
 	//PASSWORD
 
 	public function changepw(){

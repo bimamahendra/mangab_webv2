@@ -41,7 +41,6 @@
                 <th class="text-center">Dosen</th>
                 <th class="text-center">Mata Kuliah</th>
                 <th class="text-center">Topik</th>
-                <th class="text-center">Ruangan</th>
                 <th class="text-center">Waktu</th>
                 <th class="text-center">Status</th>
                 <th class="text-center" style="width: 50px">Detail</th>
@@ -54,7 +53,6 @@
                   <td class="text-left"><?php echo $absen->NAMA_DOSEN; ?></td>
                   <td class="text-left"><?php echo $absen->NAMA_MATKUL; ?></td>
                   <td class="text-left"><?php echo $absen->TOPIK; ?></td>
-                  <td class="text-center"><?php echo $absen->RUANGAN_ABSEN; ?></td>
                   <td class="text-center"><?php echo $absen->TS_ABSEN; ?></td>
                   <?php if($absen->STATUS_ABSEN == 1){?>
                     <td class="text-center"><a href="<?= base_url('Absen/verif/' . $absen->ID_ABSEN) ?>" class="btn btn-sm btn-primary">Verification</a></td>
