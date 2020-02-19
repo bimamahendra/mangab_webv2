@@ -71,6 +71,22 @@ class Mgenerate extends CI_Model {
     return TRUE;
   }
 
+  public function getdetail($id){
+    $this->db->where('ID_MATKUL', $id);
+    $this->db->order_by('TS_ABSEN','DESC');
+    $this->db->from('absen');
+    $query = $this->db->get();
+    return $query->result();
+  }
+
+  public function getnamamatkul($id){
+    $this->db->where('ID_MATKUL',$id);
+    $this->db->select('KODE_MATKUL, NAMA_MATKUL');
+    $this->db->from('matkul');
+    $query = $this->db->get();
+    return $query->result();
+  }
+
   public function gethistory($nip){
     $query = $this->db->query("SELECT m.NAMA_MATKUL, m.KELAS_MATKUL, a.TOPIK, a.TS_ABSEN, a.STATUS_ABSEN FROM absen a JOIN matkul m ON a.ID_MATKUL = m.ID_MATKUL WHERE m.NIP_DOSEN = '".$nip."'");
     return $query->result();

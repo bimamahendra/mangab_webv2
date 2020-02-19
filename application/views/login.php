@@ -20,7 +20,7 @@
             </div>
             <div class="row">
                 <div class="mx-auto col-10 col-md-4 p-3">
-                    <h1 class="mb-1 text-white">e-tan</h1>
+                    <h1 class="mb-1 text-white">e-ttan</h1>
                     <p class="text-white">Secure-Attendance</p>
                     <?php if ($this->session->flashdata('error_login')){ ?>
                     <div class="alert alert-danger" role="alert">
@@ -37,7 +37,7 @@
                         </div>
                         <button type="submit" class="btn btn-block" style="background-color: #FA873C; color:white">LOGIN</button>
                     </form>
-                    <p class="pt-3 text-white">All Rights Reserved © e-tan 2020</p>
+                    <p class="pt-3 text-white">All Rights Reserved © e-ttan 2020</p>
                 </div>
             </div>
         </div>

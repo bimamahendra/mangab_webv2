@@ -119,6 +119,13 @@ class Generate extends CI_Controller {
 		redirect('Generate/absenlist');
 	}
 
+	public function detail($id){
+		$param['main_content'] = 'generate/detaillist';
+		$param['datadet'] = $this->Mgenerate->getdetail($id);
+		$param['matkuldet'] = $this->Mgenerate->getnamamatkul($id);
+		$this->load->view('dashboard', $param);
+	}
+
 	public function history(){
 		$nip = $this->session->userdata('nip');
 		$param['main_content'] = 'generate/history';
