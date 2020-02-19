@@ -29,7 +29,11 @@
               <?php $i = 1; foreach ($datadet as $row) {?>
                 <tr>
                   <td class="text-center"><?php echo $i ?></td>
-                  <td><?php echo $row->ID_ABSEN ?></td>
+                  <td><div class="text-center" style="margin: 0 auto;">
+                    <a href="<?php echo base_url('Generate/showqr/'.$row->ID_ABSEN) ?>">
+                      <img src="<?php echo base_url('assets/images/qr/'.$row->ID_ABSEN.'.png') ?>" height="50" width="50" class="img-fluid" alt="">
+                    </a>
+                  </div></td>
                   <td><?php echo $row->TOPIK ?></td>
                   <td class="text-center"><?php echo $row->TS_ABSEN ?></td>
                   <td><?php echo $row->NOTE ?></td>
