@@ -2,7 +2,7 @@
 <html>
 
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title> e-ttan </title>
+	<title> MaNgab </title>
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="<?= base_url('assets/images/icon.png') ?>">
@@ -16,7 +16,7 @@
 <body>
 	<div class="d-flex" id="wrapper">
 		<nav class="bg-light border-right" id="sidebar-wrapper">
-			<div class="sidebar-heading" > Secure Attendance <br><b>| e-ttan</b> </div>
+			<div class="sidebar-heading" > Mahasiswa Ngabsen <br><b>| MaNgab </b> </div>
 			<div class="list-group list-group-flush">
 				<?php if($this->session->userdata('isDosen')){ ?>
 					<a href="<?= base_url(); ?>" class="list-group-item list-group-item-action bg-light"><span class="fa fa-dashboard"></span> Dashboard</a>
