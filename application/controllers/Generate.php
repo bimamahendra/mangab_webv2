@@ -19,9 +19,12 @@ class Generate extends CI_Controller {
 	}
 
 	public function generate(){
-		$sixdigit = $this->sixdigit();
-		$id = $this->input->post('id');
-		$topik = $this->input->post('topik');
+		$sixdigit 	= $this->sixdigit();
+		$id 		= $this->input->post('id');
+		$topik 		= $this->input->post('topik');
+		$jenis 		= $this->input->post('radioJenis');
+		$lat		= $this->input->post('getLat');
+		$long		= $this->input->post('getLong');
 
 		// $topik = "Belajar Modal";
 
@@ -50,7 +53,10 @@ class Generate extends CI_Controller {
 	    	"ID_ABSEN" => $sixdigit,
 	    	"ID_MATKUL" => $id,
 	    	"TOPIK" => $topik,
-	    	"TS_ABSEN" => $now,
+			"TS_ABSEN" => $now,
+			"JENIS_ABSEN" => $jenis,
+			"LONG_ABSEN" => $long,
+			"LAT_ABSEN" => $lat,
 	    	"STATUS_ABSEN" => 0
 	    );
 	 		$getmhs = $this->Mgenerate->getmhs($id);
@@ -60,10 +66,10 @@ class Generate extends CI_Controller {
 	 		foreach($getmhs as $mhs){
 	 			$dataDetailAbsen["ID_ABSEN"] = $sixdigit;
 				$dataDetailAbsen["NRP_MHS"] = $mhs["nrp"];
-	      $dataDetailAbsen["STATUS_DETABSEN"] = 0;
-	      $dataDetailAbsen["TS_DETABSEN"] = null;
+				$dataDetailAbsen["STATUS_DETABSEN"] = 0;
+				$dataDetailAbsen["TS_DETABSEN"] = null;
 
-	      $detailAbsenMhs[] = $dataDetailAbsen;
+	      		$detailAbsenMhs[] = $dataDetailAbsen;
 	 		}
 
 	 		$inputMhs = $this->Mgenerate->savedet($detailAbsenMhs);

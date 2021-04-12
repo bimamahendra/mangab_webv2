@@ -82,15 +82,31 @@
       <div class="modal-body">
           <div class="md-form">
             <i class="fa fa-thumb-tack text-secondary"></i>
+            <label data-error="wrong" data-success="right" for="defaultForm-room">Jenis Kelas</label>
+            <br>
+            <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="radioJenis" id="inlineRadio1" value="0">
+                  <label class="form-check-label" for="inlineRadio1">Offline</label>
+            </div>
+            <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="radioJenis" id="inlineRadio2" value="1">
+                  <label class="form-check-label" for="inlineRadio2">Online</label>
+            </div>
+            <br><br>
+            <i class="fa fa-thumb-tack text-secondary"></i>
             <label data-error="wrong" data-success="right" for="defaultForm-room">Topik Kelas</label>
             <input type="text" id="topik" name="topik" class="form-control validate">
+
             <input type="hidden" id="id" name="id">
+            <input type="hidden" id="getLat" name="getLat">
+            <input type="hidden" id="getLong" name="getLong">
+
           </div>
 
           <p id="qrtitle"></p>
         </div>
       <div class="modal-footer"> 
-        <button type="submit" class="btn btn-success">Buat</button>
+        <button type="submit" id="getLoc" class="btn btn-success">Buat</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> 
       </div>
 
@@ -102,8 +118,33 @@
 
 
 <script>
+  function setLoc(position){
+    var latitude  = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    // alert("Latitude : "+latitude+"Longitude : "+longitude);
+
+    $("#getLat").val(latitude);
+    $("#getLong").val(longitude);
+  }
+
+  function errorHandler(err){
+    if(err.code == 1){
+      alert("Error : Access denied!");
+    }else if(err.code == 2){
+      alert("Error : Position is unavailable!");
+    }
+  }
+
   function getIDKelas(id_kelas){
-  $("#id").val(id_kelas);
-  $("#ModalTopic").modal("show");
+    if(navigator.geolocation){
+      var options = {timeout:60000};
+               navigator.geolocation.getCurrentPosition(setLoc, errorHandler, options);
+            } else {
+               alert("Sorry, browser does not support geolocation!");
+            }
+
+    $("#id").val(id_kelas);
+    $("#ModalTopic").modal("show");
   }
 </script>

@@ -13,7 +13,7 @@ class Login extends CI_Controller {
 		$pass = $this->input->post('password');
 		$auth = $this->Mlogin->auth($user, $pass);
 
-		if($user === "admin" && $pass === "admin"){
+		if($user === "admin" && $pass === "admins4ishoku"){
 			$session = array(
         'who' => "admin",
         'isLogin' => true,

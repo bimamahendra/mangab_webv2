@@ -6,7 +6,7 @@ class Mabsen extends CI_Model {
   }
 
   public function getAllAbsen(){
-    $query = $this->db->query("SELECT absen.ID_ABSEN, dosen.NAMA_DOSEN, matkul.NAMA_MATKUL, matkul.KELAS_MATKUL, absen.TOPIK, absen.RUANGAN_ABSEN, absen.TS_ABSEN, absen.STATUS_ABSEN FROM dosen JOIN matkul ON dosen.NIP_DOSEN = matkul.NIP_DOSEN JOIN absen ON matkul.ID_MATKUL = absen.ID_MATKUL WHERE absen.STATUS_ABSEN = 1 OR absen.STATUS_ABSEN = 2 ORDER BY (ID_ABSEN) DESC");
+    $query = $this->db->query("SELECT absen.ID_ABSEN, dosen.NAMA_DOSEN, matkul.NAMA_MATKUL, matkul.KELAS_MATKUL, absen.TOPIK, absen.TS_ABSEN, absen.STATUS_ABSEN FROM dosen JOIN matkul ON dosen.NIP_DOSEN = matkul.NIP_DOSEN JOIN absen ON matkul.ID_MATKUL = absen.ID_MATKUL WHERE absen.STATUS_ABSEN = 1 OR absen.STATUS_ABSEN = 2 ORDER BY (ID_ABSEN) DESC");
     return $query->result();
   }
 
