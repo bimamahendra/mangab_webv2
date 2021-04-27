@@ -9,6 +9,7 @@ class Welcome extends CI_Controller {
 		$this->load->model('Mgenerate');
 	}
 
+	//session check
 	public function index()
 	{
 		if ($this->session->userdata('isLogin')){

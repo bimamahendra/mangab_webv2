@@ -15,6 +15,7 @@ class Absen extends CI_Controller {
 		$this->load->view('dashboard', $param);
 	}
 
+	//verifikasi admin, ketika kelas sudah direkap oleh dosen
 	public function verif($id){
 		$cek = $this->Mabsen->verifAbsen($id);
 		if($cek > 0){
@@ -26,17 +27,12 @@ class Absen extends CI_Controller {
 		}
 	}
 
+	//get list status kehadiran mahasiswa
 	public function det_absen($id){
 		$param['main_content'] = 'absen/detail';
 		$param['page_title'] = 'Detail Absensi';
 		$param['detail_list'] = $this->Mabsen->getAbsen($id);
 		$param['detail_note'] = $this->Mabsen->getNote($id);
 		$this->load->view('dashboard', $param);
-	}
-
-	public function delete($id){
-		$this->Mabsen->delete($id);
-		$this->session->set_flashdata('success_message', 'Data dosen berhasil dihapus');
-		redirect('Absen');
 	}
 }

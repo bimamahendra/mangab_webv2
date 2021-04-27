@@ -56,6 +56,7 @@ class Dosen extends CI_Controller {
 		$this->load->view('dashboard', $data);
 	}
 
+	//reset akun dosen
 	public function update(){
 		$nip 	= $this->input->post('nip');
 		$nama = $this->input->post('nama');
@@ -72,7 +73,12 @@ class Dosen extends CI_Controller {
 				];
 				$this->Mdosen->update($nip, $data);
 				if($reset == "on"){
-					$this->Mdosen->reset($nip);
+					$data = [
+						'PASS_DOSEN' => hash('sha256', md5('stikimalang')),
+						'STATUS_PASS' => 0,
+						'STATUS_LOGIN' => 0
+					];
+					$this->Mdosen->update($nip, $data);
 				}
 
 				$this->session->set_flashdata('success_message', 'Data dosen berhasil diubah');

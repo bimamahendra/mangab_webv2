@@ -10,6 +10,7 @@ class Generate extends CI_Controller {
 		$this->load->helper('string');
 	}
 
+	//get list matkul yang diampu
 	public function absenlist(){
 		$nip = $this->session->userdata('nip');
 		$param['main_content'] = 'generate/moveqr';
@@ -18,6 +19,7 @@ class Generate extends CI_Controller {
 		$this->load->view('dashboard', $param);
 	}
 
+	//generate QR Code kelas
 	public function generate(){
 		$sixdigit 	= $this->sixdigit();
 		$id 		= $this->input->post('id');
@@ -25,8 +27,6 @@ class Generate extends CI_Controller {
 		$jenis 		= $this->input->post('radioJenis');
 		$lat		= $this->input->post('getLat');
 		$long		= $this->input->post('getLong');
-
-		// $topik = "Belajar Modal";
 
 		date_default_timezone_set('Asia/Jakarta'); # add your city to set local time zone
 		$now = date('Y-m-d H:i:s');
@@ -41,12 +41,12 @@ class Generate extends CI_Controller {
 	    $config['white']        = array(70,130,180); // array, default is array(0,0,0)
 	    $this->ciqrcode->initialize($config);
 	 
-	    $image_name=$sixdigit.'.png'; //buat name dari qr code sesuai dengan nim
+	    $image_name=$sixdigit.'.png';
 	 
 	    $params['data'] 		= $sixdigit; //data yang akan di jadikan QR CODE
 	    $params['level'] 		= 'H'; //H=High
 	    $params['size'] 		= 10;
-	    $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
+	    $params['savename'] = FCPATH.$config['imagedir'].$image_name;
 	    $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
 
 	    $datakelas = array(
@@ -84,10 +84,10 @@ class Generate extends CI_Controller {
 	    }
 	}
 
+	//generate random digit
 	public function sixdigit(){
 		$randomdigit = random_string('alnum',6);
 
-		// echo $randomdigit;
 		$cek = $this->Mgenerate->cekrand($randomdigit);
 		if( $cek > 0){
 			$this->sixdigit();
@@ -138,8 +138,6 @@ class Generate extends CI_Controller {
 		$param['listhistory'] = $this->Mgenerate->gethistory($nip);
 		$this->load->view('dashboard',$param);
 	}
-
-	//PASSWORD
 
 	public function changepw(){
 		$param['main_content'] = 'generate/changepw';

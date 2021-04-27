@@ -56,6 +56,7 @@ class Mahasiswa extends CI_Controller {
 		$this->load->view('dashboard', $data);
 	}
 
+	//reset akun mahasiswa
 	public function update(){
 		$nrp 	= $this->input->post('nrp');
 		$nama = $this->input->post('nama');

@@ -22,12 +22,7 @@ class Mdosen extends CI_Model {
     $this->db->where('NIP_DOSEN', $nip)->update('dosen', $data);
     return $this->db->affected_rows();
   }
-
-  public function reset($nip){
-    $this->db->query("UPDATE dosen SET PASS_DOSEN = 'stikimalang', STATUS_PASS = 0, STATUS_LOGIN = 0 WHERE NIP_DOSEN = ".$nip." ");
-    return $this->db->affected_rows();
-  }
-
+  
   public function delete($nip){
     $this->db->where('NIP_DOSEN', $nip)->delete('dosen');
     return $this->db->affected_rows();
